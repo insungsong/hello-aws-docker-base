@@ -32,4 +32,16 @@ jobs:
         env:
           ECR: ${{ steps.login-ecr.outputs.registry }}
           TAG: ${{ github.sha }}
-        run: docker buildx build --push --platform linux/arm64/v8,linux/amd64 -t ${ECR}/hello-aws-docker:latest -t ${ECR}/hello-aws-docker:${TAG} .
+        # run: docker buildx build --push --platform linux/arm64/v8,linux/amd64 -t ${ECR}/hello-aws-docker:latest -t ${ECR}/hello-aws-docker:${TAG} .
+        run: |
+          echo "== build ======================================================="
+          docker build -t hello-aws-docker .
+          docker tag hello-aws-docker:latest 719823691862.dkr.ecr.ap-northeast-2.amazonaws.com/hello-aws-docker:latest
+          echo "== push ======================================================="
+          docker push 719823691862.dkr.ecr.ap-northeast-2.amazonaws.com/hello-aws-docker:latest
+          
+
+
+
+
+
